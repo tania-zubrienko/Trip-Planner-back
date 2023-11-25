@@ -1,11 +1,12 @@
+
 <h1>General Routes</h1>
 
 | HTTP Method  | Route                   | Description                          |
 |--------------|-------------------------|--------------------------------------|
 |     GET      | `/api/recomendations`   | (API 3s: recomendaciones de cuidades)|
 |     GET      | `/api/country-information` | API 3s: info sobre el | 
-|     POST     | `/api/signup`           | Crear usuario nuevo                  |
-|     POST     | `api/login`             | Iniciar sessión                      |
+|     POST     | `/api/auth/signup`           | Crear usuario nuevo                  |
+|     POST     | `api/auth/login`             | Iniciar sessión                      |
 
 <h1>Trip Routes</h1>
 
