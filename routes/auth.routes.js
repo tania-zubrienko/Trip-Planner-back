@@ -1,7 +1,12 @@
-const router = require("express").Router()
+const router = require('express').Router()
+const { signup, login, verify } = require('../controllers/auth.controllers')
+const { verifyToken } = require('../middlewares/verifyToken')
 
-router.get('/', (req, res, next) => {
-    res.json({ message: 'rutas de auth' })
-})
+
+router.post('/signup', signup)
+
+router.post('/login', login)
+
+router.get('/verify', verifyToken, verify)
 
 module.exports = router
