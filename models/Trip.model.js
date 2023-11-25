@@ -1,6 +1,6 @@
-const { Schema, model, SchemaType, SchemaTypes } = require('mongoose');
-const User = require('./User.model');
-const Booking = require('./Booking.model');
+const { Schema, model, SchemaType, SchemaTypes } = require('mongoose')
+const User = require('./User.model')
+const Booking = require('./Booking.model')
 
 
 const tripSchema = new Schema(
@@ -41,6 +41,6 @@ const tripSchema = new Schema(
     }
 )
 
-const Trip = model("Trip", tripSchema);
+const Trip = model("Trip", tripSchema)
 
-module.exports = Trip;
+module.exports = Trip
