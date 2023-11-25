@@ -5,7 +5,7 @@
 |     GET      | `/api/recomendations`   | (API 3s: recomendaciones de cuidades)|
 |     GET      | `/api/country-information` | API 3s: info sobre el | 
 |     POST     | `/api/signup`           | Crear usuario nuevo                  |
-|     POST     | `api//login`            | Iniciar sessión                      |
+|     POST     | `api/login`             | Iniciar sessión                      |
 
 <h1>Trip Routes</h1>
 
@@ -16,7 +16,7 @@
 |     GET      | `/api/trips/:tripID/details`| Detalled de viaje especifico         |
 |     PUT      | `/api/trips/:tripID/edit`   | Editar viaje de usuario              |
 |    DELETE    | `/api/trips/:tripID/delete` | Elimina un viaje de usuario          |
-|     GET      | `/api/savedtrips`           | Destinos apuntados                   |
+|     GET      | `/api/savedtrips`           | Destinos apuntados (wishlist)        |
 |     POST     | `/api/save-trip/:tripID`    | Añadir destino a favoritos           |
 |    DELETE    | `/api/delete-trip/:tripID`  | Eliminar destino de favoritos        |
 |     GET      | `/api/last-trips`           | Listado de viajes pasados            |
