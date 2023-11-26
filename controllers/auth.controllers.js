@@ -55,7 +55,7 @@ function login (req, res, next) {
         .catch(err => next(err))
 }
 
-function verify() {
+function verify(req, res, next) {
     const loggedUser = req.payload
 
     res.json({ loggedUser })
