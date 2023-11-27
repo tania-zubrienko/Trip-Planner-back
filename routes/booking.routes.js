@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { verifyToken } = require('../middlewares/verifyToken')
 const {
     getBookings,
     saveBooking,
@@ -6,10 +7,10 @@ const {
     deleteBooking
 } = require('./../controllers/booking.controllers')
 
-router.get('/', getBookings)
+router.get('/', verifyToken, getBookings)
 
-router.post('/add', saveBooking)
+router.post('/add', verifyToken, saveBooking)
 
-router.post('/edit/:id', editBooking)
+router.post('/edit/:id', verifyToken, editBooking)
 
-router.post('/delete/:id', deleteBooking)
+router.post('/delete/:id', verifyToken, deleteBooking)
