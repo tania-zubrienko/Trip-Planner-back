@@ -5,7 +5,7 @@ const User = require('../models/User.model')
 
 const saltRounds = 10
 
-function signup (req, res, next) {
+function signup(req, res, next) {
     const { name, email, password, avatar } = req.body
 
     const salt = bcrypt.genSaltSync(saltRounds)
@@ -17,7 +17,7 @@ function signup (req, res, next) {
         .catch(err => next(err))
 }
 
-function login (req, res, next) {
+function login(req, res, next) {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
@@ -36,8 +36,8 @@ function login (req, res, next) {
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, username } = foundUser;
-                const payload = { _id, email, username }
+                const { _id, email, avatar } = foundUser;
+                const payload = { _id, email, avatar }
 
                 const authToken = jwt.sign(
                     payload,
