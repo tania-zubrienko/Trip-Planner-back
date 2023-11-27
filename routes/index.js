@@ -9,4 +9,6 @@ module.exports = app => {
     const bookingRoutes = require("./booking.routes")
     app.use("/api/bookings", bookingRoutes)
 
+    const tripRoutes = require('./trip.routes')
+    app.use('/api/trips', tripRoutes)
 }
