@@ -8,4 +8,7 @@ module.exports = app => {
 
     const tripRoutes = require('./trip.routes')
     app.use('/api/trips', tripRoutes)
+
+    const uploadRoutes = require('./upload.routes')
+    app.use('/api/upload', uploadRoutes)
 }
