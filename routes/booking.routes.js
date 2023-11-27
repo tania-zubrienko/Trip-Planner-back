@@ -14,3 +14,5 @@ router.post('/add', verifyToken, saveBooking)
 router.post('/edit/:id', verifyToken, editBooking)
 
 router.post('/delete/:id', verifyToken, deleteBooking)
+
+module.exports = router
