@@ -5,7 +5,6 @@ module.exports = (app) => {
   })
 
   app.use((err, req, res, next) => {
-    r
     console.error("ERROR", req.method, req.path, err)
 
     if (!res.headersSent) {

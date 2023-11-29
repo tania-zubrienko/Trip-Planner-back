@@ -17,7 +17,7 @@ function saveBooking(req, res, next) {
         .then(() => {
             res.status(201).json({ message: 'booking created succesfully' })
         })
-        .catch(err => next(err))
+        .catch(err => console.log(err))
 
 }
 
