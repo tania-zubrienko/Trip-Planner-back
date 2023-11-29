@@ -14,7 +14,7 @@ function getAll(req, res, next) {
 
 function getFutureTrips(req, res, next) {
     const { _id: userId } = req.payload
-    
+
     Trip
         .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
         .then(result => res.json(result))
@@ -59,11 +59,23 @@ function editTrip(req, res, next) {
 
 }
 
+function getTrip(req, res, next) {
+
+    const { tripId } = req.params
+
+    Trip
+        .findById({ tripId })
+        .then(result => res.status(200).json(result))
+        .catch(err => next(err))
+
+}
+
 module.exports = {
     getAll,
     getFutureTrips,
     getPastTrips,
     createTrip,
     deleteTrip,
-    editTrip
+    editTrip,
+    getTrip
 }
