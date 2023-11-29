@@ -73,6 +73,5 @@ module.exports = {
     getPastTrips,
     createTrip,
     deleteTrip,
-    editTrip,
     getTripDates
 }

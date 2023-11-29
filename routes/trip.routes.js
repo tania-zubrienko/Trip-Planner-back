@@ -5,8 +5,8 @@ const {
     getFutureTrips,
     getPastTrips,
     createTrip,
-    deleteTrip,
     getTripDates
+
 } = require('./../controllers/trip.controlers')
 
 router.get('/', verifyToken, getAll)
