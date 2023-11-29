@@ -2,13 +2,17 @@ const User = require('../models/User.model')
 const { verifyToken } = require('../middlewares/verifyToken')
 const router = require('express').Router()
 
-router.get('/find/:email', (req, res, next) => {
-
+router.get('/find/:email', verifyToken, (req, res, next) => {
+    const loggedUser = req.payload
     const { email } = req.params
 
     User
         .find({
-            email: new RegExp(`^${email}`)
+            $and:
+                [
+                    { email: new RegExp(`^${email}`) },
+                    { email: { $ne: loggedUser.email } }
+                ]
         })
         .then(found => res.json(found))
         .catch(err => next(err))
