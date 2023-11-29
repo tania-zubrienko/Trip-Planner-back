@@ -1,7 +1,7 @@
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-    console.log("entro en GETALL")
+
     const { _id: userId } = req.payload
 
     Trip

@@ -7,12 +7,13 @@ const saltRounds = 10
 
 function signup(req, res, next) {
     const { name, email, password, avatar } = req.body
-
+    let newAvatar
+    avatar === "" ? newAvatar = './../../Trip-planner-front/public/profileDefault.png' : newAvatar = avatar
     const salt = bcrypt.genSaltSync(saltRounds)
     const hashedPassword = bcrypt.hashSync(password, salt)
 
     User
-        .create({ name, email, password: hashedPassword, avatar })
+        .create({ name, email, password: hashedPassword, avatar: newAvatar })
         .then(() => res.status(201).json())
         .catch(err => next(err))
 }
@@ -36,8 +37,8 @@ function login(req, res, next) {
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, avatar } = foundUser;
-                const payload = { _id, email, avatar }
+                const { _id, email, avatar, name } = foundUser;
+                const payload = { _id, email, avatar, name }
 
                 const authToken = jwt.sign(
                     payload,
