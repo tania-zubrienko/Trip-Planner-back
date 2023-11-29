@@ -21,10 +21,15 @@ const userSchema = new Schema(
     avatar: {
       type: String
     },
-    documents: {
-      type: [String],
-      default: []
-    },
+    documents: [
+      {
+        type: {
+          type: String,
+          enum: ["DNI", "Pasaporte", "Carnet", "Seguro"]
+        },
+        link: String
+      }
+    ],
     friends: [
       {
         type: Schema.Types.ObjectId,
