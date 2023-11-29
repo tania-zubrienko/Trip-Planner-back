@@ -10,14 +10,14 @@ function getBookings(req, res, next) {
 
 function saveBooking(req, res, next) {
 
-    const { type, startDate, endDate, documents } = req.body
+    const { type, name, startDate, endDate, documents } = req.body
 
     Booking
-        .create({ type, startDate, endDate, documents })
+        .create({ type, name, startDate, endDate, documents })
         .then(() => {
             res.status(201).json({ message: 'booking created succesfully' })
         })
-        .catch(err => next(err))
+        .catch(err => console.log(err))
 
 }
 

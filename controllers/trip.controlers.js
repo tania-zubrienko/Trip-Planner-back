@@ -1,7 +1,8 @@
+const { response } = require('express')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-    console.log("entro en GETALL")
+
     const { _id: userId } = req.payload
 
     Trip
@@ -9,6 +10,24 @@ function getAll(req, res, next) {
         .then(result => res.json(result))
         .catch(err => next(err))
 
+}
+
+function getFutureTrips(req, res, next) {
+    const { _id: userId } = req.payload
+    
+    Trip
+        .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
+        .then(result => res.json(result))
+        .catch(err => next(err))
+}
+
+function getPastTrips(req, res, next) {
+    const { _id: userId } = req.payload
+
+    Trip
+        .find({ participants: { $in: userId }, endDate: { $lt: new Date() } })
+        .then(result => res.json(result))
+        .catch(err => next(err))
 }
 
 function createTrip(req, res, next) {
@@ -42,6 +61,8 @@ function editTrip(req, res, next) {
 
 module.exports = {
     getAll,
+    getFutureTrips,
+    getPastTrips,
     createTrip,
     deleteTrip,
     editTrip
