@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const bookingSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
     type: {
         type: String,
         enum: ["Hotel", "Avión", "Tren", "Bus", "Entradas"]

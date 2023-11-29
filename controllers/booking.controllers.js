@@ -6,7 +6,6 @@ function getBookings(req, res, next) {
         .find()
         .then(bookings => res.status(200).json({ bookings }))
         .catch(err => next(err))
-
 }
 
 function saveBooking(req, res, next) {
@@ -19,6 +18,7 @@ function saveBooking(req, res, next) {
             res.status(201).json({ message: 'booking created succesfully' })
         })
         .catch(err => next(err))
+
 }
 
 function editBooking(req, res, next) {
@@ -32,7 +32,6 @@ function editBooking(req, res, next) {
         .catch(err => next(err))
 
 }
-
 function deleteBooking(req, res, next) {
 
     const { id } = req.params
@@ -41,6 +40,7 @@ function deleteBooking(req, res, next) {
         .findByIdAndDelete(id)
         .then(() => res.status(200).json({ message: 'booking deleted succesfully' }))
         .catch(err => next(err))
+
 }
 
 module.exports = {
