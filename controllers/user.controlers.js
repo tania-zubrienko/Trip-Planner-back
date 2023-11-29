@@ -46,8 +46,19 @@ function getFriendList(req, res, next) {
 
 }
 
+function saveDocument(req, res, next) {
+    const loggedUser = req.payload
+    const { type, link } = req.body
+
+    User
+        .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
+        .then(() => res.status(200).json())
+        .catch(err => next(err))
+}
+
 module.exports = {
     getByEmail,
     addFriend,
-    getFriendList
+    getFriendList,
+    saveDocument
 }
