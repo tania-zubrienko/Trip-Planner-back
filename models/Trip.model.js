@@ -25,17 +25,19 @@ const tripSchema = new Schema(
                 ref: Booking
             }
         ],
-        placesOfInterest: {
-            location: {
-                type: {
-                    type: String
+        placesOfInterest: [
+            {
+                location: {
+                    type: {
+                        type: String
+                    },
+                    coordinates: {
+                        type: [Number]
+                    }
                 },
-                coordinates: {
-                    type: [Number]
-                }
-            },
-            name: String
-        },
+                name: String
+            }
+        ],
         expenses: [
             {
                 concept: { type: String },
