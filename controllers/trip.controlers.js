@@ -1,4 +1,3 @@
-const { response } = require('express')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
@@ -59,15 +58,13 @@ function editTrip(req, res, next) {
 
 }
 
-function getTrip(req, res, next) {
-
-    const { tripId } = req.params
-
+function getTripDates(req, res, next) {
+    const { id } = req.params
     Trip
-        .findById({ tripId })
-        .then(result => res.status(200).json(result))
+        .findById(id)
+        .select({ startDate: 1, endDate: 1 })
+        .then(result => res.json(result))
         .catch(err => next(err))
-
 }
 
 module.exports = {
@@ -76,6 +73,5 @@ module.exports = {
     getPastTrips,
     createTrip,
     deleteTrip,
-    editTrip,
-    getTrip
+    getTripDates
 }
