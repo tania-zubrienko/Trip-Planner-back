@@ -53,12 +53,22 @@ function saveDocument(req, res, next) {
     User
         .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
         .then(() => res.status(200).json())
-        .catch(err => next(err))
+        .catch(err => console.log(err))
+}
+
+function getDocuments(req, res, next) {
+    const loggedUser = req.payload
+    
+    User
+        .findById(loggedUser._id, 'documents')
+        .then((response) => res.json(response))
+        .catch(err => console.log(err))
 }
 
 module.exports = {
     getByEmail,
     addFriend,
     getFriendList,
-    saveDocument
+    saveDocument,
+    getDocuments
 }
