@@ -5,7 +5,8 @@ const {
     getFutureTrips,
     getPastTrips,
     createTrip,
-    getTripDates
+    getTripDates,
+    deleteTrip
 
 } = require('./../controllers/trip.controlers')
 
