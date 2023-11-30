@@ -34,6 +34,22 @@ function addFriend(req, res, next) {
 
 }
 
+function deleteFriend(req, res, next) {
+    const loggedUser = req.payload
+    const { fiendId } = req.params
+
+    const promises = [
+        User.findByIdAndUpdate(loggedUser._id, { $pull: { friends: fiendId } }),
+        User.findByIdAndUpdate(fiendId, { $pull: { friends: loggedUser._id } })
+    ]
+
+    Promise
+        .all(promises)
+        .then(() => res.status(200))
+        .catch(err => next(err))
+
+}
+
 function getFriendList(req, res, next) {
 
     const loggedUser = req.payload
@@ -58,7 +74,7 @@ function saveDocument(req, res, next) {
 
 function getDocuments(req, res, next) {
     const loggedUser = req.payload
-    
+
     User
         .findById(loggedUser._id, 'documents')
         .then((response) => res.json(response))
@@ -68,6 +84,7 @@ function getDocuments(req, res, next) {
 module.exports = {
     getByEmail,
     addFriend,
+    deleteFriend,
     getFriendList,
     saveDocument,
     getDocuments
