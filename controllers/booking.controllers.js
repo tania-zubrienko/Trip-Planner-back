@@ -13,14 +13,11 @@ function saveBooking(req, res, next) {
 
     const { type, name, startDate, endDate, documents } = req.body.booking
     const { id } = req.body
-    console.log(req.body)
 
 
     Booking
         .create({ type, name, startDate, endDate, documents })
         .then(booking => {
-            console.log('soy el bookingId', booking._id)
-            console.log(id)
             return Trip.findByIdAndUpdate(id, {
                 $push: { bookings: booking._id }
             })
