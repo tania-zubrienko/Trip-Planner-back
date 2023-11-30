@@ -67,6 +67,32 @@ function getTripDates(req, res, next) {
         .catch(err => next(err))
 }
 
+function addExpensetoTrip(req, res, next) {
+
+    const { concept, cost } = req.body
+    const { expenses } = { concept, cost }
+    const { id } = req.params
+
+    Trip
+        .findByIdAndUpdate(id, { expenses })
+        .then(result => {
+            console.log(result.expenses)
+            res.status(200).json({ result })
+        })
+        .catch(err => next(err))
+
+}
+
+function getTripById(req, res, next) {
+
+    const { id } = req.params
+
+    Trip
+        .findById(id)
+        .then(result => res.status(200).json({ result }))
+        .catch(err => next(err))
+}
+
 module.exports = {
     getAll,
     getFutureTrips,
@@ -74,5 +100,7 @@ module.exports = {
     createTrip,
     deleteTrip,
     getTripDates,
-    deleteTrip
+    deleteTrip,
+    addExpensetoTrip,
+    getTripById
 }
