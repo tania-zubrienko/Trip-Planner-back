@@ -76,7 +76,6 @@ function addExpensetoTrip(req, res, next) {
     Trip
         .findByIdAndUpdate(id, { expenses })
         .then(result => {
-            console.log(result.expenses)
             res.status(200).json({ result })
         })
         .catch(err => next(err))
