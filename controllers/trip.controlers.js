@@ -36,7 +36,7 @@ function createTrip(req, res, next) {
 
     Trip
         .create({ destination, startDate, endDate, participants: [userId] })
-        .then(res => res.status(200).json({ message: 'New trip added' }))
+        .then(response => res.status(200).json({ message: 'New trip added' }))
         .catch(err => next(err))
 
 }
