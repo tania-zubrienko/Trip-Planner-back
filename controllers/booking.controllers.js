@@ -1,4 +1,5 @@
 const Booking = require('./../models/Booking.model')
+const Trip = require('./../models/Trip.model')
 
 function getBookings(req, res, next) {
 
@@ -10,14 +11,23 @@ function getBookings(req, res, next) {
 
 function saveBooking(req, res, next) {
 
-    const { type, name, startDate, endDate, documents } = req.body
+    const { type, name, startDate, endDate, documents } = req.body.booking
+    const { id } = req.body
+    console.log(req.body)
+
 
     Booking
         .create({ type, name, startDate, endDate, documents })
-        .then(() => {
-            res.status(201).json({ message: 'booking created succesfully' })
+        .then(booking => {
+            console.log('soy el bookingId', booking._id)
+            console.log(id)
+            return Trip.findByIdAndUpdate(id, {
+                $push: { bookings: booking._id }
+            })
         })
-        .catch(err => console.log(err))
+        .then(() => res.status(200).json({ message }))
+        .catch(err => next(err))
+
 
 }
 
