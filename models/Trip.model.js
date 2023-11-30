@@ -7,6 +7,10 @@ const tripSchema = new Schema(
         destination: {
             type: String
         },
+        destinationCoords: {
+            lat: { type: Number },
+            lng: { type: Number }
+        },
         startDate: {
             type: Date
         },
