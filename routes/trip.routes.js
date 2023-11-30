@@ -7,6 +7,7 @@ const {
     createTrip,
     getTripDates,
     deleteTrip
+
 } = require('./../controllers/trip.controlers')
 
 router.get('/', verifyToken, getAll)
