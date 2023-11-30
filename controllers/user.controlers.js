@@ -34,6 +34,22 @@ function addFriend(req, res, next) {
 
 }
 
+function deleteFriend(req, res, next) {
+    const loggedUser = req.payload
+    const { fiendId } = req.params
+
+    const promises = [
+        User.findByIdAndUpdate(loggedUser._id, { $pull: { friends: fiendId } }),
+        User.findByIdAndUpdate(fiendId, { $pull: { friends: loggedUser._id } })
+    ]
+
+    Promise
+        .all(promises)
+        .then(() => res.status(200))
+        .catch(err => next(err))
+
+}
+
 function getFriendList(req, res, next) {
 
     const loggedUser = req.payload
@@ -53,12 +69,23 @@ function saveDocument(req, res, next) {
     User
         .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
         .then(() => res.status(200).json())
-        .catch(err => next(err))
+        .catch(err => console.log(err))
+}
+
+function getDocuments(req, res, next) {
+    const loggedUser = req.payload
+
+    User
+        .findById(loggedUser._id, 'documents')
+        .then((response) => res.json(response))
+        .catch(err => console.log(err))
 }
 
 module.exports = {
     getByEmail,
     addFriend,
+    deleteFriend,
     getFriendList,
-    saveDocument
+    saveDocument,
+    getDocuments
 }
