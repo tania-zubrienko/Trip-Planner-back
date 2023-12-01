@@ -4,19 +4,20 @@ const { BOOKING_TYPE } = require('../consts/bookings-consts')
 const bookingSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'Booking name is required']
+        required: [true, 'El nombre de reserva es necesario']
     },
     type: {
         type: String,
-        enum: BOOKING_TYPE
+        enum: BOOKING_TYPE,
+        required: [true, 'Es necesario que elijas un tipo']
     },
     startDate: {
         type: Date,
-        required: [true, 'Start date is required']
+        required: [true, 'La fecha de inicio de la reserva es necesaria']
     },
     endDate: {
         type: Date,
-        required: [true, 'End date is required']
+        required: [true, 'La fecha de fin de la reserva es necesaria']
     },
     documents: {
         type: [String]

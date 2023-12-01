@@ -5,23 +5,23 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'Name is required'],
+      required: [true, 'El nombre es requerido.'],
       trim: true
     },
     email: {
       type: String,
-      required: [true, 'Email is required.'],
+      required: [true, 'El email es requerido.'],
       unique: true,
       lowercase: true,
       trim: true
     },
     password: {
       type: String,
-      required: [true, 'Password is required.']
+      required: [true, 'La contraseña es requerida.']
     },
     avatar: {
       type: String,
-      required: [true, 'Profile image is required']
+      required: [true, 'La imagen de perfil es requerida.']
     },
     documents: [
       {
