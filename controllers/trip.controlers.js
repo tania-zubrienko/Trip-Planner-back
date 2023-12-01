@@ -1,12 +1,11 @@
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-
     const { _id: userId } = req.payload
 
     Trip
         .find({ participants: { $in: userId } })
-        .then(result => res.json(result))
+        .then(result => res.status(200).json(result))
         .catch(err => next(err))
 
 }
@@ -16,7 +15,7 @@ function getFutureTrips(req, res, next) {
 
     Trip
         .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
-        .then(result => res.json(result))
+        .then(result => res.status(200).json(result))
         .catch(err => next(err))
 }
 
@@ -25,7 +24,7 @@ function getPastTrips(req, res, next) {
 
     Trip
         .find({ participants: { $in: userId }, endDate: { $lt: new Date() } })
-        .then(result => res.json(result))
+        .then(result => res.status(200).json(result))
         .catch(err => next(err))
 }
 
@@ -36,7 +35,7 @@ function createTrip(req, res, next) {
 
     Trip
         .create({ destination, startDate, endDate, participants: [userId], tripImage })
-        .then(response => res.status(200).json({ message: 'New trip added' }))
+        .then(response => res.status(201).json({ message: 'New trip added' }))
         .catch(err => next(err))
 
 }
@@ -47,7 +46,7 @@ function deleteTrip(req, res, next) {
 
     Trip
         .findByIdAndDelete({ tripID })
-        .then(res => res.status(200).json({ message: 'Trip deleted' }))
+        .then(res => res.status(204).json({ message: 'Trip deleted' }))
         .catch(err => next(err))
 
 }
@@ -60,26 +59,23 @@ function editTrip(req, res, next) {
 
 function getTripDates(req, res, next) {
     const { id } = req.params
+
     Trip
         .findById(id)
         .select({ startDate: 1, endDate: 1 })
-        .then(result => res.json(result))
+        .then(result => res.status(200).json(result))
         .catch(err => next(err))
 }
 
 function addExpensetoTrip(req, res, next) {
 
     const { concept, cost } = req.body
-
     const { id } = req.params
 
-    console.log(req.body)
-    console.log({ concept, cost, id })
     Trip
         .findByIdAndUpdate(id, { $push: { expenses: { concept, cost } } }, { new: true })
         .then(result => {
-            console.log("QUe no me veo", result)
-            res.status(200).json({ result })
+            res.status(200).json({ message: 'Expense created successfully' })
         })
         .catch(err => next(err))
 

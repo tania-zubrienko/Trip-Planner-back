@@ -1,4 +1,5 @@
-const { Schema, model } = require("mongoose")
+const { Schema, model } = require("mongoose");
+const { DOCUMENT_TYPE } = require("../consts/user-consts");
 
 const userSchema = new Schema(
   {
@@ -25,7 +26,7 @@ const userSchema = new Schema(
       {
         type: {
           type: String,
-          enum: ["DNI", "Pasaporte", "Carnet", "Seguro"]
+          enum: DOCUMENT_TYPE
         },
         link: String
       }

@@ -2,7 +2,7 @@ const User = require('../models/User.model')
 
 function getByEmail(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { email } = req.params
 
     User
@@ -13,14 +13,13 @@ function getByEmail(req, res, next) {
                     { email: { $ne: loggedUser.email } }
                 ]
         })
-        .then(found => res.json(found))
+        .then(found => res.status(200).json(found))
         .catch(err => next(err))
-
 }
 
 function addFriend(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { fiendId } = req.params
 
     const promises = [
@@ -30,14 +29,13 @@ function addFriend(req, res, next) {
 
     Promise
         .all(promises)
-        .then(() => res.status(200))
+        .then(() => res.status(200).json({ message: 'Friend added successfully' }))
         .catch(err => next(err))
-
 }
 
 function deleteFriend(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { fiendId } = req.params
 
     const promises = [
@@ -47,41 +45,41 @@ function deleteFriend(req, res, next) {
 
     Promise
         .all(promises)
-        .then(() => res.status(200))
+        .then(() => res.status(204).json({ message: 'Friend deleted successfully' }))
         .catch(err => next(err))
 
 }
 
 function getFriendList(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
 
     User
         .findById(loggedUser)
         .populate('friends')
-        .then(result => res.json(result.friends))
+        .then(result => res.status(200).json(result.friends))
         .catch(err => next(err))
 
 }
 
 function saveDocument(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { type, link } = req.body
 
     User
         .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
-        .then(() => res.status(200).json())
+        .then(() => res.status(200).json({ message: 'Document saved successfully' }))
         .catch(err => next(err))
 }
 
 function getDocuments(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
 
     User
         .findById(loggedUser._id, 'documents')
-        .then((response) => res.json(response))
+        .then((response) => res.status(200).json(response))
         .catch(err => next(err))
 }
 

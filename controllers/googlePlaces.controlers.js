@@ -5,7 +5,7 @@ function getNearbyPlaces(req, res, next) {
         .getPlaceBycoords(37.7937, -122.3965)
         .then(({ data }) => {
             console.log(data)
-            res.json(data)
+            res.status(200).json(data)
 
         })
         .catch(err => next(err))

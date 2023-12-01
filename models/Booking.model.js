@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const { BOOKING_TYPE } = require('../consts/bookings-consts')
 
 const bookingSchema = new Schema({
     name: {
@@ -7,7 +8,7 @@ const bookingSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ["Hotel", "Avión", "Tren", "Bus", "Entradas"]
+        enum: BOOKING_TYPE
     },
     startDate: {
         type: Date,

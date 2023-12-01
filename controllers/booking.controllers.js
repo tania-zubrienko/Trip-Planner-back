@@ -11,9 +11,8 @@ function getBookings(req, res, next) {
 
 function saveBooking(req, res, next) {
 
-    const { type, name, startDate, endDate, documents } = req.body.booking
-    const { id } = req.body
-
+    const { id, booking } = req.body
+    const { type, name, startDate, endDate, documents } = booking
 
     Booking
         .create({ type, name, startDate, endDate, documents })
@@ -22,10 +21,8 @@ function saveBooking(req, res, next) {
                 $push: { bookings: booking._id }
             })
         })
-        .then(() => res.status(200).json({ message }))
+        .then(() => res.status(201).json({ message: 'Booking created successfully' }))
         .catch(err => next(err))
-
-
 }
 
 function editBooking(req, res, next) {
@@ -35,19 +32,18 @@ function editBooking(req, res, next) {
 
     Booking
         .findByIdAndUpdate(id, { type, startDate, endDate, documents })
-        .then(() => res.status(200).json({ message: 'booking edited succesfully' }))
+        .then(() => res.status(200).json({ message: 'Booking edited successfully' }))
         .catch(err => next(err))
-
 }
+
 function deleteBooking(req, res, next) {
 
     const { id } = req.params
 
     Booking
         .findByIdAndDelete(id)
-        .then(() => res.status(200).json({ message: 'booking deleted succesfully' }))
+        .then(() => res.status(204).json({ message: 'Booking deleted successfully' }))
         .catch(err => next(err))
-
 }
 
 function filterBookingByDay(req, res, next) {
