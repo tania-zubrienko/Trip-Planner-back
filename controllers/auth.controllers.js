@@ -14,7 +14,7 @@ function signup(req, res, next) {
 
     User
         .create({ name, email, password: hashedPassword, avatar: newAvatar })
-        .then(() => res.status(201).json())
+        .then(() => res.status(201).json({ message: 'User created successfully' }))
         .catch(err => next(err))
 }
 
@@ -46,7 +46,7 @@ function login(req, res, next) {
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
 
-                res.json({ authToken })
+                res.status(200).json({ authToken })
 
             }
             else {
