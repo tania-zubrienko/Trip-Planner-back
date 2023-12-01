@@ -2,18 +2,13 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/User.model')
 
-
-const saltRounds = 10
-
 function signup(req, res, next) {
     const { name, email, password, avatar } = req.body
     let newAvatar
     avatar === "" ? newAvatar = './../../Trip-planner-front/public/profileDefault.png' : newAvatar = avatar
-    const salt = bcrypt.genSaltSync(saltRounds)
-    const hashedPassword = bcrypt.hashSync(password, salt)
 
     User
-        .create({ name, email, password: hashedPassword, avatar: newAvatar })
+        .create({ name, email, password, avatar: newAvatar })
         .then(() => res.status(201).json({ message: 'User created successfully' }))
         .catch(err => next(err))
 }

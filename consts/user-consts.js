@@ -1,1 +1,3 @@
-export const DOCUMENT_TYPE = ["DNI", "Pasaporte", "Carnet", "Seguro"]
+module.exports = {
+    DOCUMENT_TYPE: ["DNI", "Pasaporte", "Carnet", "Seguro"]
+}  
