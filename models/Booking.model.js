@@ -4,7 +4,7 @@ const { BOOKING_TYPE } = require('../consts/bookings-consts')
 const bookingSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'Booking name is required']
     },
     type: {
         type: String,
@@ -12,11 +12,11 @@ const bookingSchema = new Schema({
     },
     startDate: {
         type: Date,
-        required: true
+        required: [true, 'Start date is required']
     },
     endDate: {
         type: Date,
-        required: true
+        required: [true, 'End date is required']
     },
     documents: {
         type: [String]

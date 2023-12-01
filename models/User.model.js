@@ -20,7 +20,8 @@ const userSchema = new Schema(
       required: [true, 'Password is required.']
     },
     avatar: {
-      type: String
+      type: String,
+      required: [true, 'Profile image is required']
     },
     documents: [
       {
