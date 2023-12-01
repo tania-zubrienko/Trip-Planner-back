@@ -50,9 +50,21 @@ function deleteBooking(req, res, next) {
 
 }
 
+function filterBookingByDay(req, res, next) {
+    const { tripId, bookingDate } = req.body
+
+    Trip
+        .findById({ _id: tripId }, { project: { bookings: 1 } })
+        .populate('bookings')
+        .then((data) => data.bookings.filter(booking => booking.startDate <= new Date(bookingDate) && booking.endDate >= new Date(bookingDate)))
+        .then(filteredBookings => res.json(filteredBookings))
+        .catch(err => next(err))
+}
+
 module.exports = {
     getBookings,
     saveBooking,
     editBooking,
-    deleteBooking
+    deleteBooking,
+    filterBookingByDay
 }

@@ -29,7 +29,7 @@ const tripSchema = new Schema(
         bookings: [
             {
                 type: Schema.Types.ObjectId,
-                ref: Booking
+                ref: 'Booking'
             }
         ],
         placesOfInterest: [
