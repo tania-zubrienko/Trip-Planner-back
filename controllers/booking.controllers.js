@@ -11,8 +11,8 @@ function getBookings(req, res, next) {
 
 function saveBooking(req, res, next) {
 
-    const { id, booking } = req.body
-    const { type, name, startDate, endDate, documents } = booking
+    const { id } = req.params
+    const { type, name, startDate, endDate, documents } = req.body
 
     Booking
         .create({ type, name, startDate, endDate, documents })
