@@ -1,11 +1,10 @@
 const { Schema, model, SchemaType, SchemaTypes } = require('mongoose')
-const User = require('./User.model')
-const Booking = require('./Booking.model')
 
 const tripSchema = new Schema(
     {
         destination: {
-            type: String
+            type: String,
+            required: [true, 'Destination is required']
         },
         destinationCoords: {
             lat: { type: Number },
@@ -15,15 +14,17 @@ const tripSchema = new Schema(
             type: String
         },
         startDate: {
-            type: Date
+            type: Date,
+            required: [true, 'Start date is required']
         },
         endDate: {
-            type: Date
+            type: Date,
+            required: [true, 'End date is required']
         },
         participants: [
             {
                 type: Schema.Types.ObjectId,
-                ref: User
+                ref: 'User'
             }
         ],
         bookings: [
@@ -56,7 +57,7 @@ const tripSchema = new Schema(
             {
                 task: {
                     type: String,
-                    required: true
+                    required: [true, 'Task definition is required']
                 },
                 done: {
                     type: Boolean,
@@ -69,6 +70,8 @@ const tripSchema = new Schema(
         timestamps: true
     }
 )
+
 tripSchema.index({ location: '2dsphere' })
+
 const Trip = model('Trip', tripSchema)
 module.exports = Trip
