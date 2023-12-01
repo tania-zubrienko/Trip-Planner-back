@@ -1,7 +1,6 @@
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-
     const { _id: userId } = req.payload
 
     Trip
@@ -60,6 +59,7 @@ function editTrip(req, res, next) {
 
 function getTripDates(req, res, next) {
     const { id } = req.params
+
     Trip
         .findById(id)
         .select({ startDate: 1, endDate: 1 })
@@ -70,15 +70,11 @@ function getTripDates(req, res, next) {
 function addExpensetoTrip(req, res, next) {
 
     const { concept, cost } = req.body
-
     const { id } = req.params
 
-    console.log(req.body)
-    console.log({ concept, cost, id })
     Trip
         .findByIdAndUpdate(id, { $push: { expenses: { concept, cost } } }, { new: true })
         .then(result => {
-            console.log("QUe no me veo", result)
             res.status(200).json({ result })
         })
         .catch(err => next(err))

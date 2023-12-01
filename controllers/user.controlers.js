@@ -2,7 +2,7 @@ const User = require('../models/User.model')
 
 function getByEmail(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { email } = req.params
 
     User
@@ -15,12 +15,11 @@ function getByEmail(req, res, next) {
         })
         .then(found => res.json(found))
         .catch(err => next(err))
-
 }
 
 function addFriend(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { fiendId } = req.params
 
     const promises = [
@@ -32,12 +31,11 @@ function addFriend(req, res, next) {
         .all(promises)
         .then(() => res.status(200))
         .catch(err => next(err))
-
 }
 
 function deleteFriend(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { fiendId } = req.params
 
     const promises = [
@@ -54,7 +52,7 @@ function deleteFriend(req, res, next) {
 
 function getFriendList(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
 
     User
         .findById(loggedUser)
@@ -66,7 +64,7 @@ function getFriendList(req, res, next) {
 
 function saveDocument(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
     const { type, link } = req.body
 
     User
@@ -77,7 +75,7 @@ function saveDocument(req, res, next) {
 
 function getDocuments(req, res, next) {
 
-    const loggedUser = req.payload
+    const { payload: loggedUser } = req
 
     User
         .findById(loggedUser._id, 'documents')

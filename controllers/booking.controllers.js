@@ -9,11 +9,11 @@ function getBookings(req, res, next) {
         .catch(err => next(err))
 }
 
+// TODO: ADECUAR ESTADOS HTTP
 function saveBooking(req, res, next) {
 
-    const { type, name, startDate, endDate, documents } = req.body.booking
-    const { id } = req.body
-
+    const { id, booking } = req.body
+    const { type, name, startDate, endDate, documents } = booking
 
     Booking
         .create({ type, name, startDate, endDate, documents })
@@ -22,10 +22,8 @@ function saveBooking(req, res, next) {
                 $push: { bookings: booking._id }
             })
         })
-        .then(() => res.status(200).json({ message }))
+        .then(() => res.status(201).json({ message }))
         .catch(err => next(err))
-
-
 }
 
 function editBooking(req, res, next) {
@@ -37,8 +35,8 @@ function editBooking(req, res, next) {
         .findByIdAndUpdate(id, { type, startDate, endDate, documents })
         .then(() => res.status(200).json({ message: 'booking edited succesfully' }))
         .catch(err => next(err))
-
 }
+
 function deleteBooking(req, res, next) {
 
     const { id } = req.params
@@ -47,7 +45,6 @@ function deleteBooking(req, res, next) {
         .findByIdAndDelete(id)
         .then(() => res.status(200).json({ message: 'booking deleted succesfully' }))
         .catch(err => next(err))
-
 }
 
 module.exports = {
