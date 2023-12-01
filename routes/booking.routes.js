@@ -10,7 +10,7 @@ const {
 
 router.get('/', verifyToken, getBookings)
 
-router.post('/add', verifyToken, saveBooking)
+router.post('/add/:id', verifyToken, saveBooking)
 
 router.post('/edit/:id', verifyToken, editBooking)
 
