@@ -41,12 +41,11 @@ function createTrip(req, res, next) {
 }
 
 function deleteTrip(req, res, next) {
-
-    const { tripID } = req.params
-
+    const { id: tripID } = req.params
+    console.log(tripID)
     Trip
-        .findByIdAndDelete({ tripID })
-        .then(res => res.status(204).json({ message: 'Trip deleted' }))
+        .findByIdAndDelete(tripID)
+        .then(() => res.status(204))
         .catch(err => next(err))
 
 }
