@@ -31,10 +31,10 @@ function getPastTrips(req, res, next) {
 function createTrip(req, res, next) {
 
     const { _id: userId } = req.payload
-    const { destination, startDate, endDate, tripImage } = req.body
+    const { destination, startDate, endDate, tripImage, destinationCoords } = req.body
 
     Trip
-        .create({ destination, startDate, endDate, participants: [userId], tripImage })
+        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords })
         .then(response => res.status(201).json({ message: 'New trip added' }))
         .catch(err => next(err))
 
