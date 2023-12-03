@@ -8,7 +8,8 @@ const {
     getTripDates,
     deleteTrip,
     addExpensetoTrip,
-    getTripById
+    getTripById,
+    editTrip
 
 } = require('./../controllers/trip.controlers')
 
@@ -21,6 +22,8 @@ router.get('/past', verifyToken, getPastTrips)
 router.post('/add', verifyToken, createTrip)
 
 router.post('/:id/delete', verifyToken, deleteTrip)
+
+router.post('/:id/edit', verifyToken, editTrip)
 
 router.get('/:id/dates', verifyToken, getTripDates)
 

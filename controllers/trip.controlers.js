@@ -52,8 +52,14 @@ function deleteTrip(req, res, next) {
 }
 
 function editTrip(req, res, next) {
+    const { id: tripId } = req.params
+    const members = Array.from(new Set(req.body))
+    console.log(members)
 
-    const { tripID } = req.params
+    Trip
+        .findByIdAndUpdate(tripId, { participants: members })
+        .then(() => res.status(200))
+        .catch(err => next(err))
 
 }
 
@@ -102,5 +108,6 @@ module.exports = {
     getTripDates,
     deleteTrip,
     addExpensetoTrip,
-    getTripById
+    getTripById,
+    editTrip
 }
