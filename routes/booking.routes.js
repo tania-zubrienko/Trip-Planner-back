@@ -16,6 +16,6 @@ router.post('/edit/:id', verifyToken, editBooking)
 
 router.post('/delete/:id', verifyToken, deleteBooking)
 
-router.get('/filter', verifyToken, filterBookingByDay)
+router.post('/filter/:tripId', verifyToken, filterBookingByDay)
 
 module.exports = router
