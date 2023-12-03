@@ -6,7 +6,6 @@ class SearchNearby {
         this.api = axios.create({
             baseURL: 'https://places.googleapis.com/v1/places:searchNearby'
         })
-
         this.api.interceptors.request.use((config) => {
 
             config.headers = {
