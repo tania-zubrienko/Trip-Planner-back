@@ -1,3 +1,4 @@
+const User = require('./..//models/User.model')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
@@ -86,6 +87,7 @@ function getTripById(req, res, next) {
 
     Trip
         .findById(id)
+        .populate('participants')
         .then(result => res.status(200).json({ result }))
         .catch(err => next(err))
 }
