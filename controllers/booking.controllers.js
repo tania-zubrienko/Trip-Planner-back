@@ -42,7 +42,7 @@ function deleteBooking(req, res, next) {
 
     Booking
         .findByIdAndDelete(id)
-        .then(() => res.status(204).json({ message: 'Booking deleted successfully' }))
+        .then(() => res.status(202).json({ message: 'Booking deleted successfully' }))
         .catch(err => next(err))
 }
 
