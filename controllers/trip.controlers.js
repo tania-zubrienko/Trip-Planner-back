@@ -109,6 +109,17 @@ function getListParticipants(req, res, next) {
         .catch(err => next(err))
 }
 
+function deleteParticipants(req, res, next) {
+    const { tripId } = req.params
+    const { member } = req.body
+
+    Trip
+        .findByIdAndUpdate(tripId, { $pull: { participants: member } })
+        .then(() => res.status(202).json({ message: 'Participante eliminado correctamente' }))
+        .catch(err => next(err))
+
+}
+
 module.exports = {
     getAll,
     getFutureTrips,
@@ -120,5 +131,6 @@ module.exports = {
     addExpensetoTrip,
     getTripById,
     editTrip,
-    getListParticipants
+    getListParticipants,
+    deleteParticipants
 }
