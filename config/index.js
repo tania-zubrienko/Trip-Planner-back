@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: '*'
+      origin: [FRONTEND_URL]
     })
   )
 
