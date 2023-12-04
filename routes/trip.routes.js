@@ -9,6 +9,7 @@ const {
     deleteTrip,
     addExpensetoTrip,
     getTripById,
+    addPlantoTrip,
     editTrip,
     getListParticipants,
     deleteParticipants
@@ -30,10 +31,13 @@ router.get('/:id/dates', verifyToken, getTripDates)
 
 router.post('/:id/expenses', verifyToken, addExpensetoTrip)
 
+router.post('/:id/plan', verifyToken, addPlantoTrip)
+
 router.get('/:id/participants', verifyToken, getListParticipants)
 
 router.post('/:tripId/deleteMember', deleteParticipants)
 
 router.get('/:id', verifyToken, getTripById)
+
 
 module.exports = router

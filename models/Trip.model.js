@@ -35,6 +35,7 @@ const tripSchema = new Schema(
         ],
         placesOfInterest: [
             {
+                placeId: String,
                 location: {
                     type: {
                         type: String
@@ -42,8 +43,7 @@ const tripSchema = new Schema(
                     coordinates: {
                         type: [Number]
                     }
-                },
-                name: String
+                }
             }
         ],
         expenses: [

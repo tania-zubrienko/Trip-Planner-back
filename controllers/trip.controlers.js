@@ -98,6 +98,23 @@ function getTripById(req, res, next) {
         .catch(err => next(err))
 }
 
+
+function addPlantoTrip(req, res, next) {
+
+    const { placeId } = req.body
+
+    const { id } = req.params
+
+    Trip
+        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId } } }, { new: true })
+        .then(result => {
+            res.status(200).json({ message: 'Plan created succesfully' })
+        })
+        .catch(err => next(err))
+}
+
+
+
 function getListParticipants(req, res, next) {
     const { id } = req.params
 
@@ -120,6 +137,7 @@ function deleteParticipants(req, res, next) {
 
 }
 
+
 module.exports = {
     getAll,
     getFutureTrips,
@@ -130,6 +148,7 @@ module.exports = {
     deleteTrip,
     addExpensetoTrip,
     getTripById,
+    addPlantoTrip,
     editTrip,
     getListParticipants,
     deleteParticipants
