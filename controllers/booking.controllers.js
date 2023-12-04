@@ -49,12 +49,15 @@ function deleteBooking(req, res, next) {
 function filterBooking(req, res, next) {
     const { tripId } = req.params
     const { bookingDate, bookingType } = req.body
+    console.log(req.body)
 
     if (!bookingDate && !bookingType) {
+        console.log()
         Trip
             .findById({ _id: tripId }, { project: { bookings: 1 } })
             .populate('bookings')
             .then(response => res.json(response.bookings))
+            .catch(err => next(err))
     }
     if (bookingDate && !bookingType) {
         Trip
