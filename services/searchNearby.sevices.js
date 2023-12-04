@@ -44,6 +44,7 @@ class SearchNearby {
 }
 
 
+
 const searchNearbyService = new SearchNearby()
 
 export default searchNearbyService
