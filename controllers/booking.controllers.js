@@ -46,23 +46,37 @@ function deleteBooking(req, res, next) {
         .catch(err => next(err))
 }
 
-function filterBookingByDay(req, res, next) {
+function filterBooking(req, res, next) {
     const { tripId } = req.params
-    const { bookingDate } = req.body
+    const { bookingDate, bookingType } = req.body
 
-    console.log('fecha', bookingDate)
-
-    if (!bookingDate) {
+    if (!bookingDate && !bookingType) {
         Trip
             .findById({ _id: tripId }, { project: { bookings: 1 } })
             .populate('bookings')
             .then(response => res.json(response.bookings))
     }
-    else {
+    if (bookingDate && !bookingType) {
         Trip
             .findById({ _id: tripId }, { project: { bookings: 1 } })
             .populate('bookings')
             .then((data) => data.bookings.filter(booking => booking.startDate <= new Date(bookingDate) && booking.endDate >= new Date(bookingDate)))
+            .then(filteredBookings => res.json(filteredBookings))
+            .catch(err => next(err))
+    }
+    if (!bookingDate && bookingType) {
+        Trip
+            .findById({ _id: tripId }, { project: { bookings: 1 } })
+            .populate('bookings')
+            .then((data) => data.bookings.filter(booking => booking.type === bookingType))
+            .then(filteredBookings => res.json(filteredBookings))
+            .catch(err => next(err))
+    }
+    if (bookingDate && bookingType) {
+        Trip
+            .findById({ _id: tripId }, { project: { bookings: 1 } })
+            .populate('bookings')
+            .then((data) => data.bookings.filter(booking => booking.startDate <= new Date(bookingDate) && booking.endDate >= new Date(bookingDate) && booking.type === bookingType))
             .then(filteredBookings => res.json(filteredBookings))
             .catch(err => next(err))
     }
@@ -73,5 +87,5 @@ module.exports = {
     saveBooking,
     editBooking,
     deleteBooking,
-    filterBookingByDay
+    filterBooking
 }
