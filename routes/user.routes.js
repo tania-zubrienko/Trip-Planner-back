@@ -1,6 +1,13 @@
-const User = require('../models/User.model')
 const { verifyToken } = require('../middlewares/verifyToken')
-const { getByEmail, addFriend, deleteFriend, getFriendList, saveDocument, getDocuments } = require('../controllers/user.controlers')
+const {
+    getByEmail,
+    addFriend,
+    deleteFriend,
+    getFriendList,
+    saveDocument,
+    getDocuments,
+    deleteDocument
+} = require('../controllers/user.controlers')
 const router = require('express').Router()
 
 router.get('/find/:email', verifyToken, getByEmail)
@@ -14,5 +21,7 @@ router.get('/friends', verifyToken, getFriendList)
 router.post('/documents/new', verifyToken, saveDocument)
 
 router.get('/documents', verifyToken, getDocuments)
+
+router.post('/documents/delete/:documentId', verifyToken, deleteDocument)
 
 module.exports = router

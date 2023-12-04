@@ -46,7 +46,7 @@ function deleteTrip(req, res, next) {
     console.log(tripID)
     Trip
         .findByIdAndDelete(tripID)
-        .then(() => res.status(204))
+        .then(() => res.status(202))
         .catch(err => next(err))
 
 }
