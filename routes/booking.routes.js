@@ -5,7 +5,7 @@ const {
     saveBooking,
     editBooking,
     deleteBooking,
-    filterBookingByDay
+    filterBooking
 } = require('./../controllers/booking.controllers')
 
 router.get('/', verifyToken, getBookings)
@@ -16,6 +16,6 @@ router.post('/edit/:id', verifyToken, editBooking)
 
 router.post('/delete/:id', verifyToken, deleteBooking)
 
-router.get('/filter', verifyToken, filterBookingByDay)
+router.post('/filter/:tripId', verifyToken, filterBooking)
 
 module.exports = router

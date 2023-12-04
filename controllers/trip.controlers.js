@@ -46,14 +46,20 @@ function deleteTrip(req, res, next) {
     console.log(tripID)
     Trip
         .findByIdAndDelete(tripID)
-        .then(() => res.status(204))
+        .then(() => res.status(202))
         .catch(err => next(err))
 
 }
 
 function editTrip(req, res, next) {
+    const { id: tripId } = req.params
+    const members = Array.from(new Set(req.body))
+    console.log(members)
 
-    const { tripID } = req.params
+    Trip
+        .findByIdAndUpdate(tripId, { participants: members })
+        .then(() => res.status(200))
+        .catch(err => next(err))
 
 }
 
@@ -92,6 +98,7 @@ function getTripById(req, res, next) {
         .catch(err => next(err))
 }
 
+
 function addPlantoTrip(req, res, next) {
 
     const { placeId } = req.body
@@ -108,6 +115,29 @@ function addPlantoTrip(req, res, next) {
 
 
 
+function getListParticipants(req, res, next) {
+    const { id } = req.params
+
+    Trip
+        .findById(id)
+        .select({ participants: 1 })
+        .populate('participants')
+        .then(result => res.status(200).json({ result }))
+        .catch(err => next(err))
+}
+
+function deleteParticipants(req, res, next) {
+    const { tripId } = req.params
+    const { member } = req.body
+
+    Trip
+        .findByIdAndUpdate(tripId, { $pull: { participants: member } })
+        .then(() => res.status(202).json({ message: 'Participante eliminado correctamente' }))
+        .catch(err => next(err))
+
+}
+
+
 module.exports = {
     getAll,
     getFutureTrips,
@@ -118,5 +148,8 @@ module.exports = {
     deleteTrip,
     addExpensetoTrip,
     getTripById,
-    addPlantoTrip
+    addPlantoTrip,
+    editTrip,
+    getListParticipants,
+    deleteParticipants
 }

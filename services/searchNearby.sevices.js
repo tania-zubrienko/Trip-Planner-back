@@ -7,9 +7,12 @@ class SearchNearby {
             baseURL: 'https://places.googleapis.com/v1/places:searchNearby'
         })
         this.api.interceptors.request.use((config) => {
+            //TODO key comentado
 
             config.headers = {
-                "X-Goog-Api-Key": 'AIzaSyBDuPHmeT2hJFxWwcM2p7abZU05Gau84Pw',
+
+                "X-Goog-Api-Key": '',
+
 
                 "X-Goog-FieldMask":
                     `places.id,places.formattedAddress,places.displayName.text,places.currentOpeningHours.weekdayDescriptions,places.googleMapsUri,places.websiteUri,places.rating,places.types`,

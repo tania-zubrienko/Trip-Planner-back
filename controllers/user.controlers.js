@@ -29,7 +29,7 @@ function addFriend(req, res, next) {
 
     Promise
         .all(promises)
-        .then(() => res.status(200).json({ message: 'Friend added successfully' }))
+        .then(() => res.status(200).json({ message: 'Amigo añadido correctamente' }))
         .catch(err => next(err))
 }
 
@@ -45,7 +45,7 @@ function deleteFriend(req, res, next) {
 
     Promise
         .all(promises)
-        .then(() => res.status(204).json({ message: 'Friend deleted successfully' }))
+        .then(() => res.status(202).json({ message: 'Amigo eliminado correctamente' }))
         .catch(err => next(err))
 
 }
@@ -69,7 +69,7 @@ function saveDocument(req, res, next) {
 
     User
         .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
-        .then(() => res.status(200).json({ message: 'Document saved successfully' }))
+        .then(() => res.status(200).json({ message: 'Documento guardado correctamente' }))
         .catch(err => next(err))
 }
 
@@ -83,11 +83,22 @@ function getDocuments(req, res, next) {
         .catch(err => next(err))
 }
 
+function deleteDocument(req, res, next) {
+    const { payload: loggedUser } = req
+    const { documentId } = req.params
+
+    User
+        .findByIdAndUpdate(loggedUser._id, { $pull: { documents: { _id: documentId } } })
+        .then(() => res.status(202).json({ message: 'Documento eliminado correctamente' }))
+        .catch(err => next(err))
+}
+
 module.exports = {
     getByEmail,
     addFriend,
     deleteFriend,
     getFriendList,
     saveDocument,
-    getDocuments
+    getDocuments,
+    deleteDocument
 }
