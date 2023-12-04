@@ -98,6 +98,16 @@ function getTripById(req, res, next) {
         .catch(err => next(err))
 }
 
+function getListParticipants(req, res, next) {
+    const { id } = req.params
+
+    Trip
+        .findById(id)
+        .select({ participants: 1 })
+        .populate('participants')
+        .then(result => res.status(200).json({ result }))
+        .catch(err => next(err))
+}
 
 module.exports = {
     getAll,
@@ -109,5 +119,6 @@ module.exports = {
     deleteTrip,
     addExpensetoTrip,
     getTripById,
-    editTrip
+    editTrip,
+    getListParticipants
 }
