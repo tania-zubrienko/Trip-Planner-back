@@ -10,7 +10,9 @@ class SearchNearby {
             //TODO key comentado
 
             config.headers = {
-                "X-Goog-Api-Key": '//',
+
+                "X-Goog-Api-Key": '',
+
 
                 "X-Goog-FieldMask":
                     `places.id,places.formattedAddress,places.displayName.text,places.currentOpeningHours.weekdayDescriptions,places.googleMapsUri,places.websiteUri,places.rating,places.types`,
