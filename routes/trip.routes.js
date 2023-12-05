@@ -3,8 +3,8 @@ const searchDetailsService = require('../services/searchDetails.services')
 const router = require('express').Router()
 const {
     getAll,
-    getFutureTrips,
-    getPastTrips,
+    // getFutureTrips,
+    // getPastTrips,
     createTrip,
     getTripDates,
     deleteTrip,
@@ -14,25 +14,25 @@ const {
     editTrip,
     getListParticipants,
     deleteParticipants,
-    getPlaceInfo
+    // getPlaceInfo
 } = require('./../controllers/trip.controlers')
 
 router.get('/', verifyToken, getAll)
 
-router.get('/future', verifyToken, getFutureTrips)
+// router.get('/future', verifyToken, getFutureTrips)
 
-router.get('/past', verifyToken, getPastTrips)
+// router.get('/past', verifyToken, getPastTrips)
 
 router.post('/add', verifyToken, createTrip)
 
-router.get('/place/:planId', (req, res, next) => {
-    console.log("ESTOY EN RUUUUUUUUUUUUUUUUUUUUUUUUUUTA")
-    const { planId } = req.params
-    searchDetailsService
-        .getDetailsPlace(planId)
-        .then(response => res.status(200).json(response.data.result))
-        .catch(err => next(err))
-})
+// router.get('/place/:planId', (req, res, next) => {
+//     console.log("ESTOY EN RUUUUUUUUUUUUUUUUUUUUUUUUUUTA")
+//     const { planId } = req.params
+//     searchDetailsService
+//         .getDetailsPlace(planId)
+//         .then(response => res.status(200).json(response.data.result))
+//         .catch(err => next(err))
+// })
 
 router.post('/:id/delete', verifyToken, deleteTrip)
 
