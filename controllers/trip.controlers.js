@@ -100,13 +100,13 @@ function getTripById(req, res, next) {
 
 
 function addPlantoTrip(req, res, next) {
-
     const { placeId } = req.body
-
+    const { name } = req.body
     const { id } = req.params
 
+    console.log(req.body)
     Trip
-        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name } } }, { new: true })
         .then(result => {
             res.status(200).json({ message: 'Plan created succesfully' })
         })
@@ -137,6 +137,10 @@ function deleteParticipants(req, res, next) {
 
 }
 
+function getPlaceInfo(req, res, next) {
+    console.log(req.params.planId)
+}
+
 
 module.exports = {
     getAll,
@@ -151,5 +155,6 @@ module.exports = {
     addPlantoTrip,
     editTrip,
     getListParticipants,
-    deleteParticipants
+    deleteParticipants,
+    getPlaceInfo
 }

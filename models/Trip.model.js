@@ -36,6 +36,7 @@ const tripSchema = new Schema(
         placesOfInterest: [
             {
                 placeId: String,
+                name: String,
                 location: {
                     type: {
                         type: String
