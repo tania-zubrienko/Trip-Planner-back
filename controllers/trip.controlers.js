@@ -11,23 +11,23 @@ function getAll(req, res, next) {
 
 }
 
-function getFutureTrips(req, res, next) {
-    const { _id: userId } = req.payload
+// function getFutureTrips(req, res, next) {
+//     const { _id: userId } = req.payload
 
-    Trip
-        .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
-        .then(result => res.status(200).json(result))
-        .catch(err => next(err))
-}
+//     Trip
+//         .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
+//         .then(result => res.status(200).json(result))
+//         .catch(err => next(err))
+// }
 
-function getPastTrips(req, res, next) {
-    const { _id: userId } = req.payload
+// function getPastTrips(req, res, next) {
+//     const { _id: userId } = req.payload
 
-    Trip
-        .find({ participants: { $in: userId }, endDate: { $lt: new Date() } })
-        .then(result => res.status(200).json(result))
-        .catch(err => next(err))
-}
+//     Trip
+//         .find({ participants: { $in: userId }, endDate: { $lt: new Date() } })
+//         .then(result => res.status(200).json(result))
+//         .catch(err => next(err))
+// }
 
 function createTrip(req, res, next) {
 
@@ -113,8 +113,6 @@ function addPlantoTrip(req, res, next) {
         .catch(err => next(err))
 }
 
-
-
 function getListParticipants(req, res, next) {
     const { id } = req.params
 
@@ -137,15 +135,15 @@ function deleteParticipants(req, res, next) {
 
 }
 
-function getPlaceInfo(req, res, next) {
-    console.log(req.params.planId)
-}
+// function getPlaceInfo(req, res, next) {
+//     console.log(req.params.planId)
+// }
 
 
 module.exports = {
     getAll,
-    getFutureTrips,
-    getPastTrips,
+    // getFutureTrips,
+    // getPastTrips,
     createTrip,
     deleteTrip,
     getTripDates,
@@ -156,5 +154,5 @@ module.exports = {
     editTrip,
     getListParticipants,
     deleteParticipants,
-    getPlaceInfo
+    // getPlaceInfo
 }
