@@ -5,7 +5,7 @@ function getBookings(req, res, next) {
 
     Booking
         .find()
-        .then(bookings => res.status(200).json({ bookings }))
+        .then(() => res.sendStatus(200))
         .catch(err => next(err))
 }
 
@@ -21,7 +21,7 @@ function saveBooking(req, res, next) {
                 $push: { bookings: booking._id }
             })
         })
-        .then(() => res.status(201).json({ message: 'Booking created successfully' }))
+        .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }
 
@@ -32,7 +32,7 @@ function editBooking(req, res, next) {
 
     Booking
         .findByIdAndUpdate(id, { type, startDate, endDate, documents })
-        .then(() => res.status(200).json({ message: 'Booking edited successfully' }))
+        .then(() => res.sendStatus(200))
         .catch(err => next(err))
 }
 
@@ -42,7 +42,7 @@ function deleteBooking(req, res, next) {
 
     Booking
         .findByIdAndDelete(id)
-        .then(() => res.status(202).json({ message: 'Booking deleted successfully' }))
+        .then(() => res.sendStatus(202))
         .catch(err => next(err))
 }
 

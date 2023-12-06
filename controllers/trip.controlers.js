@@ -8,7 +8,7 @@ function getAll(req, res, next) {
 
     Trip
         .find({ participants: { $in: userId } })
-        .then(result => res.status(200).json(result))
+        .then(result => res.json(result))
         .catch(err => next(err))
 
 }
@@ -20,7 +20,7 @@ function createTrip(req, res, next) {
 
     Trip
         .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords })
-        .then(response => res.status(201).json({ message: 'New trip added' }))
+        .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
 }
@@ -55,7 +55,7 @@ function getTripDates(req, res, next) {
     Trip
         .findById(id)
         .select({ startDate: 1, endDate: 1 })
-        .then(result => res.status(200).json(result))
+        .then(result => res.json(result))
         .catch(err => next(err))
 }
 
@@ -78,7 +78,7 @@ function getTripById(req, res, next) {
     Trip
         .findById(id)
         .populate('participants')
-        .then(result => res.status(200).json({ result }))
+        .then(result => res.json({ result }))
         .catch(err => next(err))
 }
 
@@ -94,6 +94,7 @@ function addPlantoTrip(req, res, next) {
         .catch(err => next(err))
 }
 
+
 function getListParticipants(req, res, next) {
 
     const { id } = req.params
@@ -102,7 +103,7 @@ function getListParticipants(req, res, next) {
         .findById(id)
         .select({ participants: 1 })
         .populate('participants')
-        .then(result => res.status(200).json({ result }))
+        .then(result => res.json({ result }))
         .catch(err => next(err))
 }
 
@@ -119,6 +120,7 @@ function deleteParticipants(req, res, next) {
 }
 
 function deletePlan(req, res, next) {
+
     const { tripId } = req.params
     const { planId } = req.body
 
