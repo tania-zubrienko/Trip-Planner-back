@@ -2,15 +2,6 @@ const placePhotoService = require('../services/placePhoto.services')
 const searchDetailsService = require('../services/searchDetails.services')
 const router = require('express').Router()
 
-// router.get('/getPhoto/:photoRef', (req, res, next) => {
-//     console.log("REEEEEEEEEEEEEEEEEEEEF")
-//     const { photoRef } = req.params
-
-//     placePhotoService
-//         .getPhoto(photoRef)
-//         .then(response => res.json(response.request.res.responseUrl))
-//         .catch(err => next(err))
-// })
 
 router.get('/:planId', (req, res, next) => {
 
@@ -23,7 +14,7 @@ router.get('/:planId', (req, res, next) => {
             const { website, url, name, formatted_address, rating } = data.result
 
             const place = { website, url, formatted_address, name, rating }
-            place.hours = data.result.opening_hours.weekday_text[0].split(' ').slice(1)
+            place.hours = data.result.opening_hours?.weekday_text[0].split(' ').slice(1) || 'No hay información'
             place.photoRef = data.result.photos[0].photo_reference
 
 
