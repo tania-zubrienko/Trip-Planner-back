@@ -1,3 +1,4 @@
+const router = require('express').Router()
 const { verifyToken } = require('../middlewares/verifyToken')
 const {
     getByEmail,
@@ -8,7 +9,7 @@ const {
     getDocuments,
     deleteDocument
 } = require('../controllers/user.controlers')
-const router = require('express').Router()
+
 
 router.get('/find/:email', verifyToken, getByEmail)
 
