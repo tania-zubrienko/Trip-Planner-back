@@ -9,7 +9,7 @@ function signup(req, res, next) {
 
     User
         .create({ name, email, password, avatar: newAvatar })
-        .then(() => res.status(201).json({ message: 'User created successfully' }))
+        .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }
 
@@ -17,7 +17,7 @@ function login(req, res, next) {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
-        res.status(400).json({ errorMessage: ['Provide email and password.'] })
+        res.sendStatus(400)
         return
     }
 
@@ -26,7 +26,7 @@ function login(req, res, next) {
         .then((foundUser) => {
 
             if (!foundUser) {
-                res.status(401).json({ errorMessage: ["User not found."] })
+                res.sendStatus(401)
                 return
             }
 
@@ -41,7 +41,7 @@ function login(req, res, next) {
 
             }
             else {
-                res.status(401).json({ errorMessage: ["Incorrect password"] })
+                res.sendStatus(401)
             }
         })
         .catch(err => next(err))

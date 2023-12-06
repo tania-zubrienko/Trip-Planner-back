@@ -1,15 +1,22 @@
 const axios = require('axios')
-// TODO: REFACTORIZAR
+
 class SearchDetails {
 
     constructor() {
         this.api = axios.create({
-            baseURL: 'https://maps.googleapis.com/maps/api/place/details'
+            baseURL: 'https://maps.googleapis.com/maps/api/place/details',
+            params: {
+                key: process.env.GOOGLE_PLACES_API_KEY
+            }
         })
     }
 
     getDetailsPlace(placeId) {
-        return this.api.get(`/json?place_id=${placeId}&key=${process.env.GOOGLE_PLACES_API_KEY}`)
+        return this.api.get(`/json`, {
+            params: {
+                place_id: placeId
+            }
+        })
     }
 
 }

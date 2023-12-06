@@ -15,7 +15,7 @@ function getPlaceObject(req, res, next) {
 
             place.hours = data.result.opening_hours?.weekday_text[0].split(' ').slice(1) || 'No hay información del horario'
 
-            place.photoRef = data.result.photos[0].photo_reference
+            place.photoRef = data.result.photos[0]?.photo_reference //no tocar!!!
 
             return place
         })
