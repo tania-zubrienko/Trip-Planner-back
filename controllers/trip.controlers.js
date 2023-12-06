@@ -134,10 +134,6 @@ function deletePlan(req, res, next) {
         .catch(err => next(err))
 }
 
-// function getPlaceInfo(req, res, next) {
-//     console.log(req.params.planId)
-// }
-
 
 module.exports = {
     getAll,
@@ -152,5 +148,4 @@ module.exports = {
     getListParticipants,
     deleteParticipants,
     deletePlan
-    // getPlaceInfo
 }
