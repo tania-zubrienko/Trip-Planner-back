@@ -128,6 +128,16 @@ function deletePlan(req, res, next) {
         .catch(err => next(err))
 }
 
+function deleteExpense(req, res, next) {
+    const { tripId } = req.params
+    const { expenseId } = req.body
+
+    Trip
+        .findByIdAndUpdate(tripId, { $pull: { expenses: { _id: expenseId } } })
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
+}
+
 
 module.exports = {
     getAll,
@@ -141,5 +151,6 @@ module.exports = {
     editTrip,
     getListParticipants,
     deleteParticipants,
-    deletePlan
+    deletePlan,
+    deleteExpense
 }
