@@ -49,8 +49,14 @@ const tripSchema = new Schema(
         ],
         expenses: [
             {
-                concept: { type: String },
-                cost: { type: Number }
+                concept: {
+                    type: String,
+                    required: [true, 'Indica el concepto']
+                },
+                cost: {
+                    type: Number,
+                    required: [true, 'Indica la cantidad']
+                }
             }
         ],
         information: { type: String },
