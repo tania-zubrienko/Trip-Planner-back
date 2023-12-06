@@ -1,5 +1,6 @@
 const User = require('../models/User.model')
 
+// TODO: REVISAR TODAS LAS RESPONSES CON STATUS
 function getByEmail(req, res, next) {
 
     const { payload: loggedUser } = req
@@ -78,7 +79,8 @@ function getDocuments(req, res, next) {
     const { payload: loggedUser } = req
 
     User
-        .findById(loggedUser._id, 'documents')
+        .findById(loggedUser._id)
+        .select({ documents: 1 })
         .then((response) => res.status(200).json(response))
         .catch(err => next(err))
 }

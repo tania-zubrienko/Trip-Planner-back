@@ -4,12 +4,20 @@ class PlacePhoto {
 
     constructor() {
         this.api = axios.create({
-            baseURL: 'https://maps.googleapis.com/maps/api/place'
+            baseURL: 'https://maps.googleapis.com/maps/api/place',
+            params: {
+                maxwidth: 2500,
+                key: process.env.GOOGLE_PLACES_API_KEY
+            }
         })
     }
 
     getPhoto(photoRef) {
-        return this.api.get(`/photo?maxwidth=2500&photo_reference=${photoRef}&key=${process.env.GOOGLE_PLACES_API_KEY}`)
+        return this.api.get(`/photo`, {
+            params: {
+                photo_reference: photoRef
+            }
+        })
     }
 }
 
