@@ -6,6 +6,9 @@ const tripSchema = new Schema(
             type: String,
             required: [true, 'Destination is required']
         },
+        country: {
+            type: String
+        },
         destinationCoords: {
             lat: { type: Number },
             lng: { type: Number }
@@ -44,7 +47,8 @@ const tripSchema = new Schema(
                     coordinates: {
                         type: [Number]
                     }
-                }
+                },
+                date: Date
             }
         ],
         expenses: [

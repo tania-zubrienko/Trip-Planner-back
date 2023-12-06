@@ -16,10 +16,10 @@ function getAll(req, res, next) {
 function createTrip(req, res, next) {
 
     const { _id: userId } = req.payload
-    const { destination, startDate, endDate, tripImage, destinationCoords } = req.body
+    const { destination, startDate, endDate, tripImage, destinationCoords, country } = req.body
 
     Trip
-        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords })
+        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords, country })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
