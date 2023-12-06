@@ -7,6 +7,7 @@ function getPlaceObject(req, res, next) {
     searchDetailsService
         .getDetailsPlace(planId)
         .then(({ data }) => {
+            console.log(data)
             const { website, url, name, formatted_address, rating } = data.result
 
             const place = { website, url, formatted_address, name, rating }
