@@ -1,5 +1,5 @@
 const axios = require('axios')
-
+// TODO: REFACTORIZAR
 class SearchDetails {
 
     constructor() {
