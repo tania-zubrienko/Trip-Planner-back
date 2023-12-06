@@ -2,6 +2,7 @@ const User = require('./..//models/User.model')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
+
     const { _id: userId } = req.payload
 
     Trip
@@ -10,24 +11,6 @@ function getAll(req, res, next) {
         .catch(err => next(err))
 
 }
-
-// function getFutureTrips(req, res, next) {
-//     const { _id: userId } = req.payload
-
-//     Trip
-//         .find({ participants: { $in: userId }, endDate: { $gt: new Date() } })
-//         .then(result => res.status(200).json(result))
-//         .catch(err => next(err))
-// }
-
-// function getPastTrips(req, res, next) {
-//     const { _id: userId } = req.payload
-
-//     Trip
-//         .find({ participants: { $in: userId }, endDate: { $lt: new Date() } })
-//         .then(result => res.status(200).json(result))
-//         .catch(err => next(err))
-// }
 
 function createTrip(req, res, next) {
 
@@ -42,8 +25,9 @@ function createTrip(req, res, next) {
 }
 
 function deleteTrip(req, res, next) {
+
     const { id: tripID } = req.params
-    console.log(tripID)
+
     Trip
         .findByIdAndDelete(tripID)
         .then(() => res.status(202))
@@ -52,9 +36,9 @@ function deleteTrip(req, res, next) {
 }
 
 function editTrip(req, res, next) {
+
     const { id: tripId } = req.params
     const members = Array.from(new Set(req.body))
-    console.log(members)
 
     Trip
         .findByIdAndUpdate(tripId, { participants: members })
@@ -64,6 +48,7 @@ function editTrip(req, res, next) {
 }
 
 function getTripDates(req, res, next) {
+
     const { id } = req.params
 
     Trip
@@ -100,11 +85,11 @@ function getTripById(req, res, next) {
 
 
 function addPlantoTrip(req, res, next) {
+
     const { placeId } = req.body
     const { name } = req.body
     const { id } = req.params
 
-    console.log(req.body)
     Trip
         .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name } } }, { new: true })
         .then(result => {
@@ -114,6 +99,7 @@ function addPlantoTrip(req, res, next) {
 }
 
 function getListParticipants(req, res, next) {
+
     const { id } = req.params
 
     Trip
@@ -125,6 +111,7 @@ function getListParticipants(req, res, next) {
 }
 
 function deleteParticipants(req, res, next) {
+
     const { tripId } = req.params
     const { member } = req.body
 
@@ -147,15 +134,8 @@ function deletePlan(req, res, next) {
         .catch(err => next(err))
 }
 
-// function getPlaceInfo(req, res, next) {
-//     console.log(req.params.planId)
-// }
-
-
 module.exports = {
     getAll,
-    // getFutureTrips,
-    // getPastTrips,
     createTrip,
     deleteTrip,
     getTripDates,
@@ -167,5 +147,4 @@ module.exports = {
     getListParticipants,
     deleteParticipants,
     deletePlan
-    // getPlaceInfo
 }

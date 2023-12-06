@@ -1,5 +1,5 @@
-const { Schema, model } = require("mongoose");
-const { DOCUMENT_TYPE } = require("../consts/user-consts");
+const { Schema, model } = require('mongoose');
+const { DOCUMENT_TYPE } = require('../consts/user-consts');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -73,7 +73,7 @@ userSchema.methods.signToken = function () {
   const authToken = jwt.sign(
     payload,
     process.env.TOKEN_SECRET,
-    { algorithm: 'HS256', expiresIn: "6h" }
+    { algorithm: 'HS256', expiresIn: '6h' }
   )
 
   return authToken

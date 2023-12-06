@@ -1,8 +1,5 @@
 module.exports = app => {
 
-    const apiRoutes = require('./api.routes')
-    app.use('/api', apiRoutes)
-
     const authRoutes = require('./auth.routes')
     app.use('/api/auth', authRoutes)
 
@@ -18,6 +15,6 @@ module.exports = app => {
     const userRoutes = require('./user.routes')
     app.use('/api/user', userRoutes)
 
-    const placesRoutes = require("./places.routes")
-    app.use("/api/place", placesRoutes)
+    const placesRoutes = require('./places.routes')
+    app.use('/api/place', placesRoutes)
 }
