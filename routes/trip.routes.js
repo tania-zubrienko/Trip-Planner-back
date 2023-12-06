@@ -14,6 +14,7 @@ const {
     editTrip,
     getListParticipants,
     deleteParticipants,
+    deletePlan
     // getPlaceInfo
 } = require('./../controllers/trip.controlers')
 
@@ -47,6 +48,8 @@ router.post('/:id/plan', verifyToken, addPlantoTrip)
 router.get('/:id/participants', verifyToken, getListParticipants)
 
 router.post('/:tripId/deleteMember', deleteParticipants)
+
+router.post('/:tripId/deletePlan', verifyToken, deletePlan)
 
 router.get('/:id', verifyToken, getTripById)
 

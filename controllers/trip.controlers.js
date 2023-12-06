@@ -135,6 +135,18 @@ function deleteParticipants(req, res, next) {
 
 }
 
+function deletePlan(req, res, next) {
+    const { tripId } = req.params
+    const { planId } = req.body
+
+    console.log("entra aquí")
+
+    Trip
+        .findByIdAndUpdate(tripId, { $pull: { placesOfInterest: { _id: planId } } })
+        .then(() => res.status(202).json({ message: 'Plan eliminado correctamente' }))
+        .catch(err => next(err))
+}
+
 // function getPlaceInfo(req, res, next) {
 //     console.log(req.params.planId)
 // }
@@ -154,5 +166,6 @@ module.exports = {
     editTrip,
     getListParticipants,
     deleteParticipants,
+    deletePlan
     // getPlaceInfo
 }
