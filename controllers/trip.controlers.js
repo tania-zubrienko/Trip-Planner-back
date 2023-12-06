@@ -64,6 +64,16 @@ function addExpensetoTrip(req, res, next) {
     const { concept, cost } = req.body
     const { id } = req.params
 
+    if (!concept) {
+        res.status(401).json({ errorMessage: ["Concepto es obligatorio"] })
+        return
+    }
+
+    if (cost === 0) {
+        res.status(401).json({ errorMessage: ["Cantidad es obligatoria"] })
+        return
+    }
+
     Trip
         .findByIdAndUpdate(id, { $push: { expenses: { concept, cost } } }, { new: true })
         .then(() => res.sendStatus(201))
