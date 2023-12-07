@@ -19,8 +19,6 @@ class CountryServices {
     }
 
     getInfo(country) {
-
-        console.log("y por aqui tmb ----------------------", country)
         return this.api.get(`/country-details?country=${country}`)
     }
 }
