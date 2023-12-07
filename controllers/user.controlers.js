@@ -67,10 +67,15 @@ function saveDocument(req, res, next) {
     const { payload: loggedUser } = req
     const { type, link } = req.body
 
+    if (link.length === 0) {
+        res.status(401).json({ errorMessages: ['Debes subir una imagen'] })
+        return
+    }
     User
         .findByIdAndUpdate(loggedUser._id, { $push: { documents: { type, link } } })
         .then(() => res.sendStatus(200))
         .catch(err => next(err))
+
 }
 
 function getDocuments(req, res, next) {
