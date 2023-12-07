@@ -13,9 +13,9 @@ const tripSchema = new Schema(
             lat: { type: Number },
             lng: { type: Number }
         },
-        tripImage: {
+        tripImage: [{
             type: String
-        },
+        }],
         startDate: {
             type: Date,
             required: [true, 'Start date is required']
