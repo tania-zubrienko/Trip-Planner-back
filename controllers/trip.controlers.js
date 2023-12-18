@@ -94,8 +94,7 @@ function getTripById(req, res, next) {
 
 
 function addPlantoTrip(req, res, next) {
-
-    const { placeId, name } = req.body
+    const { placeId, name, date } = req.body
     const { id } = req.params
 
     Trip
