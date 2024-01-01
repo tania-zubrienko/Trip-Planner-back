@@ -94,11 +94,12 @@ function getTripById(req, res, next) {
 
 
 function addPlantoTrip(req, res, next) {
-    const { placeId, name, date } = req.body
+
+    const { placeId, name, date, location } = req.body
     const { id } = req.params
 
     Trip
-        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name, date } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name, date, location } } }, { new: true })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }
