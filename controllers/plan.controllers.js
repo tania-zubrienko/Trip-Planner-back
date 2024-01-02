@@ -4,7 +4,6 @@ function getPlansByDate(req, res, next) {
     const { id: tripId } = req.params
     if (req.body.planDate) {
         const planDate = new Date(req.body.planDate)
-        console.log(planDate)
         Trip
             .findById(tripId)
             .select({ placesOfInterest: 1 })

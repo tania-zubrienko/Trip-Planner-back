@@ -7,7 +7,7 @@ function getPlaceObject(req, res, next) {
     searchDetailsService
         .getDetailsPlace(planId)
         .then(({ data }) => {
-            //console.log(data.result.geometry)
+
             const { url, name, formatted_address, rating } = data.result
             const { location } = data.result.geometry
             const website = data.result.website || "Este sitio no tiene página web"
@@ -32,7 +32,6 @@ function getPlaceObject(req, res, next) {
                     const img = result.request.res.responseUrl
                     const place = placeInfo
                     place.img = img
-                    console.log(place)
                     return place
 
                 })

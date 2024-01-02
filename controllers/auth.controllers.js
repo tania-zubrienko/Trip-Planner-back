@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User.model')
 
 function signup(req, res, next) {
-    console.log("ENTRO???")
+
     const { name, email, password, avatar } = req.body
     let newAvatar
     avatar === "" ? newAvatar = './../../Trip-planner-front/public/profileDefault.png' : newAvatar = avatar
@@ -15,7 +15,7 @@ function signup(req, res, next) {
 }
 
 function login(req, res, next) {
-    console.log("ENTRO???")
+
     const { email, password } = req.body
     if (email === '' || password === '') {
         res.status(400).json({ errorMessage: ['Provide email and password.'] })
