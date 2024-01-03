@@ -60,6 +60,10 @@ const tripSchema = new Schema(
                 cost: {
                     type: Number,
                     required: [true, 'Indica la cantidad']
+                },
+                paidBy: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
                 }
             }
         ],
