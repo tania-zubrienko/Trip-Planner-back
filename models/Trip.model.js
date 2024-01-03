@@ -41,11 +41,11 @@ const tripSchema = new Schema(
                 placeId: String,
                 name: String,
                 location: {
-                    type: {
-                        type: String
+                    lat: {
+                        type: Number
                     },
-                    coordinates: {
-                        type: [Number]
+                    lng: {
+                        type: Number
                     }
                 },
                 date: Date
@@ -60,6 +60,10 @@ const tripSchema = new Schema(
                 cost: {
                     type: Number,
                     required: [true, 'Indica la cantidad']
+                },
+                paidBy: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
                 }
             }
         ],

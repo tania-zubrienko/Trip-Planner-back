@@ -61,7 +61,7 @@ function getTripDates(req, res, next) {
 
 function addExpensetoTrip(req, res, next) {
 
-    const { concept, cost } = req.body
+    const { concept, cost, paidBy } = req.body
     const { id } = req.params
 
     if (!concept) {
@@ -75,7 +75,7 @@ function addExpensetoTrip(req, res, next) {
     }
 
     Trip
-        .findByIdAndUpdate(id, { $push: { expenses: { concept, cost } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { expenses: { concept, cost, paidBy } } }, { new: true })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
@@ -88,6 +88,7 @@ function getTripById(req, res, next) {
     Trip
         .findById(id)
         .populate('participants')
+        .populate('expenses.paidBy')
         .then(result => res.json({ result }))
         .catch(err => next(err))
 }
@@ -95,11 +96,11 @@ function getTripById(req, res, next) {
 
 function addPlantoTrip(req, res, next) {
 
-    const { placeId, name } = req.body
+    const { placeId, name, date, location } = req.body
     const { id } = req.params
 
     Trip
-        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name, date, location } } }, { new: true })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }

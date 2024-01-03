@@ -8,19 +8,24 @@ function getPlaceObject(req, res, next) {
         .getDetailsPlace(planId)
         .then(({ data }) => {
 
-            const { url, name, formatted_address, rating } = data.result
 
+            const { url, name, formatted_address, rating } = data.result
+            const { location } = data.result.geometry
             const website = data.result.website || "Este sitio no tiene página web"
 
-            const place = { website, url, formatted_address, name, rating }
+            const place = { website, url, formatted_address, name, rating, location }
 
             place.hours = data.result.opening_hours?.weekday_text[0].split(' ').slice(1) || 'No hay información del horario'
 
-            place.photoRef = data.result.photos[0]?.photo_reference //no tocar!!!
+
+            place.photoRef = data.result.photos[0].photo_reference   //no tocar!!!
+
+
 
             return place
         })
         .then(placeInfo =>
+            placeInfo.photoRef &&
             placePhotoService
                 .getPhoto(placeInfo.photoRef)
                 .then(result => {
