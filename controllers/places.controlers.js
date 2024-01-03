@@ -8,6 +8,7 @@ function getPlaceObject(req, res, next) {
         .getDetailsPlace(planId)
         .then(({ data }) => {
 
+
             const { url, name, formatted_address, rating } = data.result
             const { location } = data.result.geometry
             const website = data.result.website || "Este sitio no tiene página web"

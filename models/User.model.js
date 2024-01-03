@@ -80,6 +80,7 @@ userSchema.methods.signToken = function () {
 }
 
 userSchema.methods.validatePassword = function (userPassword) {
+
   return bcrypt.compareSync(userPassword, this.password)
 }
 

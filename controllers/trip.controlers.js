@@ -3,7 +3,7 @@ const User = require('./..//models/User.model')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-
+    console.log("Entro")
     const { _id: userId } = req.payload
 
     Trip
