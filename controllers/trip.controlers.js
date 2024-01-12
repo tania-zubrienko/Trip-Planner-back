@@ -3,7 +3,7 @@ const User = require('./..//models/User.model')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-    console.log("Entro")
+
     const { _id: userId } = req.payload
 
     Trip
@@ -16,10 +16,10 @@ function getAll(req, res, next) {
 function createTrip(req, res, next) {
 
     const { _id: userId } = req.payload
-    const { destination, startDate, endDate, tripImage, destinationCoords, country } = req.body
+    const { destination, startDate, endDate, tripImage, destinationCoords, country, countryCode } = req.body
 
     Trip
-        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords, country })
+        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords, country, countryCode })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
@@ -98,7 +98,10 @@ function addPlantoTrip(req, res, next) {
 
     const { placeId, name, date, location } = req.body
     const { id } = req.params
-
+    if (!date) {
+        res.status(401).json({ errorMessage: ["La fecha es obligatoria"] })
+        return
+    }
     Trip
         .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name, date, location } } }, { new: true })
         .then(() => res.sendStatus(201))
