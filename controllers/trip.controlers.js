@@ -3,7 +3,7 @@ const User = require('./..//models/User.model')
 const Trip = require('./../models/Trip.model')
 
 function getAll(req, res, next) {
-    console.log("Entro")
+
     const { _id: userId } = req.payload
 
     Trip
@@ -16,10 +16,10 @@ function getAll(req, res, next) {
 function createTrip(req, res, next) {
 
     const { _id: userId } = req.payload
-    const { destination, startDate, endDate, tripImage, destinationCoords, country } = req.body
+    const { destination, startDate, endDate, tripImage, destinationCoords, country, countryCode } = req.body
 
     Trip
-        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords, country })
+        .create({ destination, startDate, endDate, participants: [userId], tripImage, destinationCoords, country, countryCode })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
@@ -61,7 +61,7 @@ function getTripDates(req, res, next) {
 
 function addExpensetoTrip(req, res, next) {
 
-    const { concept, cost } = req.body
+    const { concept, cost, paidBy } = req.body
     const { id } = req.params
 
     if (!concept) {
@@ -75,7 +75,7 @@ function addExpensetoTrip(req, res, next) {
     }
 
     Trip
-        .findByIdAndUpdate(id, { $push: { expenses: { concept, cost } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { expenses: { concept, cost, paidBy } } }, { new: true })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 
@@ -88,6 +88,7 @@ function getTripById(req, res, next) {
     Trip
         .findById(id)
         .populate('participants')
+        .populate('expenses.paidBy')
         .then(result => res.json({ result }))
         .catch(err => next(err))
 }
@@ -95,11 +96,14 @@ function getTripById(req, res, next) {
 
 function addPlantoTrip(req, res, next) {
 
-    const { placeId, name } = req.body
+    const { placeId, name, date, location } = req.body
     const { id } = req.params
-
+    if (!date) {
+        res.status(401).json({ errorMessage: ["La fecha es obligatoria"] })
+        return
+    }
     Trip
-        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name } } }, { new: true })
+        .findByIdAndUpdate(id, { $push: { placesOfInterest: { placeId, name, date, location } } }, { new: true })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }

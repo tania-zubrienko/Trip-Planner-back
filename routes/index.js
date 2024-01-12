@@ -20,4 +20,7 @@ module.exports = app => {
 
     const countryRoutes = require('./country.routes')
     app.use('/api/country', countryRoutes)
+
+    const planRoutes = require('./plan.routes')
+    app.use('/api/plans', planRoutes)
 }

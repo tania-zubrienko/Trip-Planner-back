@@ -9,6 +9,9 @@ const tripSchema = new Schema(
         country: {
             type: String
         },
+        countryCode: {
+            type: String
+        },
         destinationCoords: {
             lat: { type: Number },
             lng: { type: Number }
@@ -41,14 +44,17 @@ const tripSchema = new Schema(
                 placeId: String,
                 name: String,
                 location: {
-                    type: {
-                        type: String
+                    lat: {
+                        type: Number
                     },
-                    coordinates: {
-                        type: [Number]
+                    lng: {
+                        type: Number
                     }
                 },
-                date: Date
+                date: {
+                    type: Date,
+                    required: [true, 'Date is required']
+                }
             }
         ],
         expenses: [
@@ -60,7 +66,15 @@ const tripSchema = new Schema(
                 cost: {
                     type: Number,
                     required: [true, 'Indica la cantidad']
-                }
+                },
+                paidBy: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
+                },
+                participants: [{
+                    type: Schema.Types.ObjectId,
+                    ref: 'User'
+                }]
             }
         ],
         information: { type: String },
